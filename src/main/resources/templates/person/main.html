@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org" 
+	layout:decorate="~{layout/layout.html}">
+  <head> 
+    <title>배우</title>
+    
+    <script src="/js/person.js"></script>
+    <link rel="stylesheet" href="/css/movie.css" />
+    <link rel="stylesheet" href="/css/review.css" />
+  </head>
+  <body>
+ 	<div layout:fragment="content">
+	    <div class="main_info movies">
+	    	<div class="poster">
+	    		<img th:src="@{/detailImg/}+${actor.actor_pic}"></img> 
+	    	</div>
+	    	<div class="movie-detail">
+	    		<h3 th:text="${actor.actor_name}"></h3>
+	    	<ul>
+	    		<li th:text="@{출생일: }+${actor.actor_birth}"></li>
+	    		<li th:text="@{성별: }+${actor.actor_sex}"></li>
+	    	</ul>
+	    	</div>
+	    </div>
+	    <div class="sub_info">
+	    	<ul class="tab" id="detail-tab">
+	    		<li class="tab-item" data-type="mainInfo"><a href="#"><span>주요정보</span></a></li>
+	    		<li class="tab-item" data-type="participation"><a href="#"><span>필모그래픽</span></a></li>
+	    		<li class="tab-item" data-type="pic"><a href="#"><span>영상/포토</span></a></li>
+	    	</ul>
+	    	<section id="actorDetail"></section>
+	    </div>
+ 	</div>
+  </body>
+</html>

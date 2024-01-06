@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL Mapping -->
+<mapper namespace="movieMapper">
+	<resultMap type="MoviePoster" id="posterMap">
+		<id column="seq" property="seq"/>
+		<result column="posterSeq" property="posterSeq"/>
+		<result column="moviePath" property="moviePath"/>
+		<result column="movie_ref" property="movie_ref"/>
+		<result column="mainPoster" property="mainPoster"/>
+	</resultMap>
+	<resultMap type="Movie" id="movieMap">
+		<id column="movie_seq" property="movie_seq"></id>
+		<result column="movie_title" property="movie_title"/>
+		<result column="running_time_mins" property="running_time_mins"/>
+		<result column="open_date" property="open_date"/>
+		<result column="grade" property="grade"/>
+		<result column="movie_avg_score" property="movie_avg_score"/>
+		<result column="movie_produce" property="movie_produce"/>
+		<!-- <result column="movie_poster" property="movie_poster"/> -->
+		<collection 
+			property="movie_posters" 
+			resultMap="posterMap"
+			 ofType="MoviePoster"/>
+	</resultMap>
+	
+	<resultMap type="Movie" id="movieDetailMap" extends="movieMap">
+		<result column="movie_base_info" property="movie_base_info"/>
+		<result column="movie_story" property="movie_story"/>
+	</resultMap>
+	<select id="allMovie" resultType="Movie">
+	select * from movies
+	</select>
+	
+	<select id="movieYList" resultMap="movieDetailMap" parameterType="date">
+		SELECT * 
+		from movies m left JOIN movie_posters mp 
+		ON m.movie_seq = mp.movie_ref 
+		<![CDATA[ 
+			where open_date < #{date}
+		 ]]>
+	</select>
+	
+	<select id="movieNList" resultMap="movieDetailMap" parameterType="date">
+		SELECT * 
+		from movies m left JOIN movie_posters mp 
+		ON m.movie_seq = mp.movie_ref 
+		<![CDATA[ 
+			where open_date > #{date}
+		 ]]>
+	</select>
+	<select id="movieDetail" resultMap="movieDetailMap" parameterType="String">
+		SELECT
+			m.*,
+			mp.*
+		FROM movies m
+		LEFT
+		JOIN movie_posters mp ON m.movie_seq = mp.movie_ref
+		WHERE movie_seq = #{movieSeq}
+	</select>
+	<select id="movieStory" resultType="String" parameterType="int">
+		select
+			movie_story
+		 from movies 
+		 where movie_seq = #{movieSeq}
+	</select>
+	<!-- 
+	<select id ="findOneMovies" resultType="Movie" parameterType="int">
+		SELECT * 
+		 FROM castings c 
+		 INNER JOIN movies m 
+		 ON c.movie_ref = m.movie_seq  
+		 WHERE c.actor_ref = #{actor}
+	</select>
+	 -->
+	
+	<insert id="insertMovie" parameterType="Movie" 
+		useGeneratedKeys="true"
+		keyColumn="movie_seq"
+		keyProperty="movie_seq">
+		INSERT INTO movies (
+			movie_title, 
+			siteurl,
+			 movie_base_info, running_time_mins, open_date, grade, movie_story, movie_produce, movie_poster
+		) VALUES(
+			#{movie_title},
+			#{siteurl},
+			#{movie_base_info},
+			#{running_time_mins},
+			#{open_date},
+			#{grade},
+			#{movie_story},
+			#{movie_produce},
+			#{movie_poster}
+		)
+	</insert>
+	
+	<select id="searchMovie" resultMap="movieMap" parameterType="String">
+		SELECT
+			 *
+		 FROM movies
+		 WHERE movie_title LIKE #{keyword}
+	</select>
+	<update id="changeMoviePoster" parameterType="Movie">
+		update movies 
+		set movie_poster = #{movie_poster}
+		where movie_seq = #{movie_seq}
+	</update>
+</mapper>

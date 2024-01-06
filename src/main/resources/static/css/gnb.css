@@ -1,0 +1,13 @@
+.top-nav {
+  background-color: yellow;
+  display: flex;
+  column-gap: 24px;
+}
+
+.top-nav .menu {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  display: flex;
+  column-gap: 8px;
+}

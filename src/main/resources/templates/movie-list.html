@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+
+layout:decorate="~{layout/layout.html}">
+  <head> 
+    <title>영화 제목</title>
+    
+    <script src="/js/movie-rating.js"></script>
+    <link rel="stylesheet" href="/css/movie.css" />
+  </head>
+  <body>
+ 	<div layout:fragment="content">
+	    <div class="movie-head">
+	    	<h4><span class=bar></span> <span><a href="/movies">현재 상영영화</a></span></h4>
+	    	<h4><span class=bar></span> <span><a href="/movies?open=N">개봉 예정영화</a></span></h4>
+	    </div>
+	    <div id="movie-table" >
+	      	<div class="movies" th:each="movie : ${movies}">
+	      		<div class="poster">
+	      			<a th:href="@{/movies/movie-detail(movieSeq=${movie.movie_seq})}"><img th:src="@{/detailImg/} + ${movie.mainPosterPath}"></a>
+	      			
+	      			<div class="grade" th:classappend="${'g-' + movie.grade }"><span th:text="${movie.grade}"></span></div>
+	      		</div>
+		      	<div class="desc">
+		      		<div th:text="${movie.movie_title}"></div>
+		      		<div><span>평정</span><span th:text="${movie.movie_avg_score}"></span></div>
+		      		<div><span>개봉</span><span th:text="${movie.open_date}"></span></div>
+		      		
+		      	</div>
+	      	</div>
+	    </div>
+ 	</div>
+  </body>
+  <script>
+    const template = {
+      movie: `<tr><td colspan="2" id="subject" name="subject">@movie_title</td></tr>
+        <tr><td rowspan="6">
+            <img
+              width="120"
+              src="https://i.namu.wiki/i/qidNLo3GvFi1MkutdQcqF1fh0kQgAVaMuC5zltcNL44koFcsA4oUN4wo6kQ0___UXnc2ribVGvZeKjz6yKxGCjuoUd3_lQulD_Zs3SzBYCb7ttnIZL7LYrCnijNUATXzmd3YuzLjE6YRKagaOGnG3w.webp"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>@movie_base_info</td>
+        </tr>
+        <tr>
+          <td>@movie_director_ref</td>
+        </tr>
+        <tr>
+          <td>출연</td>
+        </tr>
+        <tr>
+          <td>평점</td>
+        </tr>
+        <tr>
+          <td>기타</td>
+        </tr>`,
+    };
+
+    const renderMovies = (movies) => {
+      $("#movie-table>tbody").empty();
+      movies.forEach((movie) => {
+        // let tr = template.movie.replace("@movie_title", movie.movie_title);
+        // tr = tr.replace("@movie_base_info", movie.movie_base_info);
+        // tr = tr.replace("@movie_director_ref", movie.movie_director_ref);
+        // let tr = template.movie
+        //   .replace("@movie_title", movie.movie_title)
+        //   .replace("@movie_base_info", movie.movie_base_info)
+        //   .replace("@movie_director_ref", movie.movie_director_ref);
+        let tr = template.movie;
+        // $("#movie-table>tbody").append(tr);
+
+        Object.keys(movie).forEach((prop) => {
+          console.log("[prop]", prop);
+          const param = `@${prop}`;
+          tr = tr.replace(param, movie[prop]); // movie["movie_title"]
+        });
+        $("#movie-table>tbody").append(tr);
+      });
+    };
+    $(document).ready(function () {
+      /* $.ajax({
+        type: "get", // 타입 (get, post, put 등등)
+        url: "/api/movie/all", // 요청할 서버url
+        async: true, // 비동기화 여부 (default : true)
+        headers: {
+          // Http header
+          "Content-Type": "application/json",
+          "X-HTTP-Method-Override": "POST",
+        },
+        dataType: "json", // 데이터 타입 (html, xml, json, text 등등)
+        data: null,
+        success: function (result) {
+          // 결과 성공 콜백함수
+          console.log(result);
+          renderMovies(result);
+        },
+        error: function (request, status, error) {
+          // 결과 에러 콜백함수
+          console.log(error);
+        },
+      }); */
+    });
+  </script>
+</html>

@@ -1,0 +1,180 @@
+.movie-head{
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+  margin-bottom:16px;
+}
+
+.movie-head h4{
+	display: flex;
+	margin: 0;
+	
+}
+.movie-head h4 .bar{
+	width:8px;
+ 	background-color: red;
+    margin: 3px 2px;
+}
+
+#movie-table{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#movie-table .movies {
+	flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 25%;
+    width: 25%;
+    overflow: hidden;
+}
+ 
+
+.movies .poster {
+	width: 100%;
+	height: 240px;
+	overflow: hidden;
+	position: relative;
+}
+.movies .poster img {
+	width:100%;
+	height: auto;
+}
+
+.movies .poster .grade{
+	position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1;
+    background-color: white;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 10px;
+}   
+
+.poster .grade.g-12{
+	background-color: #0088ff;
+	color: white;
+}
+
+.poster .grade.g-15{
+	background-color: orange;
+	color: white;
+}
+
+.poster .grade.g-18{
+	background-color: red;
+	color: white;
+}
+
+.poster .grade.g-all{
+	background-color: green;
+	color: white;
+}
+
+.main_info{
+	display: flex;
+	column-gap: 24px;
+}
+
+.main_info .poster{
+	flex-shrink: 0;
+	flex-grow: 0;
+	flex-basis: 200px;
+}
+
+.main_info .movie-detail {
+	flex-shrink: 1;
+	flex-grow: 1;
+	flex-basis: auto;
+}
+
+.main_info .movie-detail dl {
+	display: flex;
+	column-gap: 16px;
+}
+
+.main_info .movie-detail dl dt {
+	font-weight: 400;
+	color: #777;
+	
+}
+
+.sub_info .tab {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	    border-bottom: 1px solid #d8d8d8;
+}
+
+.sub_info .tab .tab-item {
+	margin-right: 16px;
+	
+}
+
+.sub_info .tab .tab-item a {
+	position: relative;
+	padding: 8px 12px;
+	display: block;
+	color: #444;
+	
+	
+}
+.sub_info .tab .tab-item.active a span:after { 
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 2px solid #000;
+    border-radius: 2px;
+    content: '';
+}
+/*
+ 영화 포스터 - 제목
+*/
+.movie-thumbnail {
+	display:flex;
+	flex-direction: column;
+	width: 128px;
+}
+
+.movie-thumbnail img {
+	width: 100%;
+    height: auto;
+}
+.reviews .review {
+	font-size: 12px;
+}
+.reviews .review h5 {
+	margin: 0;
+}
+.reviews .review .score {
+	color:red;
+	font-weight: 400;
+}
+.reviews .review p {
+	margin: 0;
+	background-color: #efefef;
+	padding: 8px;
+}
+.review + .review {
+	margin-top: 12px;
+}
+.review-box {
+	display: flex;
+    column-gap: 8px;
+}
+.review-box textarea {
+	flex: 1 1 auto;
+}
+.review-box > div {
+	display: flex;
+	row-gap : 8px;
+	flex-direction: column;
+}

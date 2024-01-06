@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL Mapping -->
+<mapper namespace="reviewMapper">
+	<select id="findReviewByMovie" resultType="Review" parameterType="int">
+		select * 
+		from user_reviews ur INNER JOIN users u 
+		ON ur.user_ref = u.user_seq 
+		WHERE movie_ref = #{movieSeq}
+		ORDER BY rv_seq desc
+	</select>
+	
+	<insert id="writeReview" parameterType="Review" 
+		useGeneratedKeys="true"
+		keyColumn="rv_seq"
+		keyProperty="rv_seq">
+		INSERT INTO user_reviews (
+			movie_ref, 
+			user_ref,
+			rv_score, 
+			rv_comment
+		) VALUES(
+			#{movie_ref},
+			#{user_ref},
+			#{rv_score},
+			#{rv_comment}
+		)
+	</insert>
+	
+</mapper>

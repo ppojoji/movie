@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+ xmlns:th="http://www.thymeleaf.org">
+  <head> </head>
+  <body>
+    <div class="movie-rating">
+       <div class="header">
+        <img src="../image/rank.jpg" />
+        <a href="/movies"
+          ><span class="more"><span>+</span>more</span></a
+        >
+      </div>
+      <div>
+        <div class="movie" th:each="movie, stat: ${ratings}">
+          <span class="rating" th:text="${stat.count}"></span> <span class="title" th:text="${movie.movie_title}"></span
+          ><span class="score" th:text="${movie.movie_avg_score}"></span>
+        </div>
+      <!--   <div class="movie">
+          <span class="rating">2</span>
+          <span class="title">13구역, 얼티메이텀</span
+          ><span class="score">9.5</span>
+        </div>
+        <div class="movie">
+          <span class="rating">3</span> <span class="title">김씨 표류기</span
+          ><span class="score">9.5</span>
+        </div> -->
+      </div>
+    </div>
+  </body>
+</html>

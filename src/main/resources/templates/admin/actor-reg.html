@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="/js/admin/actor-reg.js"></script>
+    <link rel="stylesheet" href="/css/admin/admin.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="left">
+        <ul>
+          <li><a href="/admin/reg/movie">작품 등록</a></li>
+          <li><a href="/admin/edit/movie">작품 수정</a></li>
+          <li><a href="/admin/reg/actor">배우 등록</a></li>
+          <li><a href="/admin/list/actor">배우 목록</a></li>
+          <li><a href="/admin/reg/director">감독 등록</a></li>
+        </ul>
+      </div>
+      <div class="page">
+        <h3 class="temp-title">배우 등록</h3>
+        <div>
+          <div class="tL">
+            <ul class="temp-detail-text">
+              <li>
+                배우이름 <input type="text" value="" name="actorName" id="actorName" />
+              </li>
+              
+              <li>
+                생년월일
+                <input type="date" value="" name="birth" id="birth" />
+              </li>
+              <li>성별
+                <input type="radio" id="sex" name="sex" value="M">남자
+     			<input type="radio" id="sex1" name="sex" value="F">여자
+              </li>
+              <li>
+                사진
+                <input type="file" name="pic" id="pic" />
+              </li>
+            </ul>
+            <ul class="temp-detail-text">
+	              <li>영화선택 <input type="text" value="" name="movie" id="movie">
+		              <div class="searchbox" style="display: none">
+		              		<!-- <div class="item" data-actor="5">박찬욱</div>
+		              		<div class="item" data-actor="8">박영훈</div> -->
+		               </div>
+	              </li>
+            	
+            	  <li>배역 <input type="text" value="" name="casting" id="casting" /></li>
+	              <li>역할
+	              	주연 <input type="radio" id="role" name="role" value="L">  
+	              	조연 <input type="radio" id="role" name="role" value="S"> 
+	              	엑스트라 <input type="radio" id="role" name="role" value="E"> 
+	              </li>
+            </ul>
+            <ul>
+            	<li><button id="addActor" class="temp-button-sub">배우등록</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

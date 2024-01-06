@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="/js/admin/actor-edit.js"></script>
+    <link rel="stylesheet" href="/css/admin/admin.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="left">
+        <ul>
+          <li><a href="/admin/reg/movie">작품 등록</a></li>
+          <li><a href="/admin/edit/movie">작품 수정</a></li>
+          <li><a href="/admin/reg/actor">배우 등록</a></li>
+          <li><a href="/admin/list/actor">배우 목록</a></li>
+        </ul>
+      </div>
+      <div class="page">
+        <h3>배우 편집</h3>
+        <div>
+          <div>
+          	<div class="actor-pic">
+          		<img th:src="@{/detailImg/}+${actor.actor_pic}" />
+          		<div class="repl">
+          			<span></span>
+          			<label><input type="file" id="pic-form">교체</label>
+          		</div>
+          	</div>
+            <ul>
+              <li>
+                배우이름 <input type="text"  th:value="${actor.actor_name}" name="actorName" id="actorName" />
+                <input type="hidden" id="actorSeq" th:value="${actor.actor_seq}">
+              </li>
+              
+              <li>
+                생년월일
+                <input type="date" th:value="${actor.actor_birth}" name="birth" id="birth" />
+              </li>
+              <li>성별
+                <input type="radio" name="sex" value="M" th:checked="${actor.actor_sex eq 'M'}">남자
+     			<input type="radio" name="sex" value="F" th:checked="${actor.actor_sex eq 'F'}">여자
+              </li>
+               <li><button id="editActor">배우수정</button></li>
+              <li>
+              	
+              </li>
+             
+            </ul>
+            
+            <div class="castings">
+            	<h3>출연 정보</h3>
+          		<div class="casting" th:each="casting : ${castings}">
+          			<span class="role" th:classappend="${casting.castingRole}"></span>
+          			<h5 th:text="|${casting.castingName}(${casting.movie.movie_title})|"></h5>
+          			<button class="actor-edit" th:data-movie="${casting.movieSeq}">배역수정</button>
+          		</div>
+          	</div>
+              	
+            <ul>
+            	<li>영화선택 <input type="text" value="" name="movie" id="movie">
+	            	<div class="searchbox" style="display: none">
+	              		<!-- <div class="item" data-actor="5">박찬욱</div>
+	              		<div class="item" data-actor="8">박영훈</div> -->
+	              	</div>
+            	</li>
+            	<li>배역 <input type="text" value="" name="casting" id="casting" /></li>
+	            <li>역할
+	              	주연 <input type="radio"  name="role" value="L"> 
+	              	조연 <input type="radio"  name="role" value="S"> 
+	              	엑스트라 <input type="radio" name="role" value="E"> 
+	            </li>
+	            <li><button id="newCasting">출연등록</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="casting-edit-form" class="modal" style="display: none">
+	       <div class="reg-form casting-form">
+	       	<h3>캐스팅</h3>
+	       	<div>
+	       		<ul>
+            	<li>영화: 박쥐1<input type="hidden" name="movieSeq" class="movieSeq" value=""></li>
+            	<li>배역 <input type="text" value="" name="castingName" class="castingName"/></li>
+	            <li>역할
+	              	주연 <input type="radio"  name="role" value="L"> 
+	              	조연 <input type="radio"  name="role" value="S"> 
+	              	엑스트라 <input type="radio" name="role" value="E"> 
+	            </li>
+            </ul>
+	       	</div>
+	       	<div>
+	       		<button type="button" class="btn-reg">수정</button>
+	       		<button type="button" class="btn-close">닫기</button>	
+	       	</div>
+	       </div>
+      </div>
+      <div id="movie-reg-form" class="modal" style="display: none">
+	       <div class=reg-form>
+	       	<h3>작품 등록</h3>
+	       	<div><input type="text" id="name"></div>
+	       	<div>
+	       		<button type="button" class="btn-movie-reg">등록</button>
+	       		<button type="button" class="btn-modal-close">닫기</button>	
+	       	</div>
+	       </div>
+      </div>
+    </div>
+  </body>
+</html>

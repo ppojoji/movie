@@ -1,0 +1,46 @@
+.login-form {
+  padding: 8px;
+  background-color: #e8e8e8;
+}
+.elem {
+  /* background-color: cadetblue; */
+  display: flex;
+  column-gap: 8px;
+}
+.elem > span {
+  flex: 0 0 40px;
+  width: 40px;
+}
+.elem > input {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  width: 100%;
+}
+.ctrl {
+  display: flex;
+  font-size: 12px;
+}
+.ctrl .left {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.ctrl .right {
+  flex: 0 0 50%;
+  position: relative;
+}
+
+.ctrl .right button {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+}
+
+.elem1 {
+  background-color: transparent;
+}

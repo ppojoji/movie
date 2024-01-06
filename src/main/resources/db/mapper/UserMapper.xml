@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL Mapping -->
+<mapper namespace="UserMapper">
+	<select id="findUsers" resultType="map">select * from con_test</select>
+	<!-- <update id="updateBoard"></update>
+ 	<delete id="deleteBoard"></delete>
+ 	<select id="getBoard" resultType="board"></select>						
+ 	<select id="getBoardList" resultMap="boardResult"></select> -->
+ 	<select id="login" parameterType="map" resultType="User">
+		 	select *
+		 	 from users
+		 	 where user_id = #{id}
+		 	 and user_pass = #{pass}
+ 	</select>
+ 	
+</mapper>

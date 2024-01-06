@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="/js/admin/movie-reg.js"></script>
+    <link rel="stylesheet" href="/css/admin/admin.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="left">
+        <ul>
+          <li><a href="/admin/reg/movie">작품 등록</a></li>
+          <li><a href="/admin/edit/movie">작품 수정</a></li>
+          <li><a href="/admin/reg/actor">배우 등록</a></li>
+          <li><a href="/admin/reg/director">감독 등록</a></li>
+        </ul>
+      </div>
+      <div class="page">
+        <h3>작품 등록</h3>
+        <div>
+          <div>
+            <ul>
+              <li>
+                영화제목 <input type="text" value="택시운전사" name="title" id="title" />
+              </li>
+              <li>제작사 <input type="text" value="없음" name="producer" id="producer" /></li>
+              <li>영화감독<input type="text" value="박" name="director" id="director" /><button id="new-director">감독 등록</button>
+              	<div class="searchbox" style="display: none">
+              		<!-- <div class="item" data-actor="5">박찬욱</div>
+              		<div class="item" data-actor="8">박영훈</div> -->
+              	</div>
+              </li>
+              <li>상영시간<input type="text" value="137" name="runningTime" id="runningTime" /></li>
+              <li>
+                영화등급
+                <select value="15" name="grade" id="grade">
+                  <option value="0">전체</option>
+                  <option value="8">8세</option>
+                  <option value="12">12세</option>
+                  <option value="15">15세</option>
+                  <option value="18">18세</option>
+                </select>
+              </li>
+              <li>
+                제작년월 <input type="date" value="2018-09-21" name="" id="" />
+              </li>
+              <li>
+                개봉일 <input type="date" value="2018-09-29" name="" id="openDate" />
+              </li>
+              <li>
+                기본정보
+                <textarea name="" id="movieBaseInfo" cols="30" rows="10"></textarea>
+              </li>
+              <li>
+                영화줄거리
+                <textarea name="" id="movieStory" cols="30" rows="10"></textarea>
+              </li>
+              <li>영화이미지</li>
+              <li><button id="addMovie">등록</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="modal director-form" style="display: none">
+       <div class=reg-form>
+       	<h3>감독 등록</h3>
+       	<div><input type="text" id="name"></div>
+       	<div>
+       		<button type="button" class="btn-reg">등록</button>
+       		<button type="button" class="btn-close">닫기</button>	
+       	</div>
+       </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL Mapping -->
+<mapper namespace="actorMapper">
+	<select id="findActorByMovie" resultType="Actor" parameterType="int">
+	SELECT
+		 *  
+	FROM castings c
+	LEFT JOIN actors a
+	  ON c.actor_ref = a.actor_seq
+	 WHERE c.movie_ref = #{movieSeq}
+	</select>
+	
+	<select id="findDirectorByMovie" resultType="Actor" parameterType="int">
+			SELECT a.* 
+			FROM castings c 
+			JOIN actors a 
+			 ON c.actor_ref = a.actor_seq
+			WHERE c.movie_ref = #{movieSeq} 
+			AND c.casting_role = 'D'
+	</select>
+	
+	<select id="findActor" resultType="Actor" parameterType="int">
+		select * 
+		 from actors
+		where actor_seq=#{actorSeq} 
+	</select>
+	
+	<select id="SearchDirector" resultType="Actor" parameterType="string">
+		select * 
+		from actors
+		WHERE actor_name LIKE #{keyword}
+	</select>
+	
+	<insert id="addDirector" parameterType="Actor">
+		 insert into actors(actor_seq,actor_name,actor_birth,actor_sex)
+		 values (#{actor_seq},#{actor_name},#{actor_birth},#{actor_sex})
+	</insert>
+	
+	<insert id="addDirector2" parameterType="Actor">
+		 insert into actors(actor_seq,actor_name,actor_birth,actor_sex,actor_pic)
+		 values (#{actor_seq},#{actor_name},#{actor_birth},#{actor_sex},#{actor_pic})
+	</insert>
+	
+	<select id="actorNameInfo" resultType="Actor" parameterType="int">
+		SELECT a.actor_seq ,
+	           a.actor_name ,
+	           a.actor_pic,
+	           c.actor_ref ,
+			   c.casting_name,
+			   c.casting_role  
+      	  FROM castings c 
+    INNER JOIN actors a 
+            ON a.actor_seq = c.actor_ref
+         WHERE c.movie_ref = #{movieSeq}
+	</select>
+	
+	<select id="searchActor" resultType="Actor" parameterType="String">
+		    SELECT * 
+	  FROM actors
+	 WHERE actor_name LIKE #{keyword}
+	</select>
+	
+	<insert id="addCasting" parameterType="map">
+		insert into castings(movie_ref,actor_ref,casting_name,casting_role)
+		values(#{movieSeq},#{actorSeq},#{castingName},#{role})
+	</insert>
+	
+	<insert id="addActor" parameterType="Actor" 
+		useGeneratedKeys="true"
+		keyColumn="actor_seq"
+		keyProperty="actor_seq"
+		>
+		insert into actors(actor_name,actor_birth,actor_sex,actor_pic)
+		values(#{actor_name},#{actor_birth},#{actor_sex},#{actor_pic}) 
+	</insert>
+	
+	<select id="findAllActor" resultType="Actor">
+		select *
+		 from actors
+	</select>
+	
+	<update id="editActor" parameterType="Actor">
+		update actors 
+		   set actor_name = #{actor_name} ,
+		       actor_birth = #{actor_birth} ,
+		       actor_sex = #{actor_sex}  
+		 where actor_seq = #{actor_seq}      
+	</update>
+	<update id="updateActorName" parameterType="Actor">
+		update actors 
+		   set actor_name = #{actor_name} 
+		 where actor_seq = #{actor_seq} 
+	</update>
+	
+	<update id="updateCastingName" parameterType="Casting">
+		update castings 
+		   set casting_name = #{castingName}
+		   , casting_role = #{castingRole}
+		 where actor_ref = #{actorSeq}
+		 and movie_ref = #{movieSeq} 
+	</update>
+	
+	<update id="editActorPic" parameterType="Actor">
+		update actors 
+		   set actor_pic = #{actor_pic}
+		 where actor_seq = #{actor_seq}      
+	</update>
+	<select id="actors" parameterType="map" resultType="Actor">
+		SELECT
+			DISTINCT(c.actor_ref) AS actor_ref, a.*
+		 FROM castings c
+		 JOIN actors a
+		   ON c.actor_ref = a.actor_seq 
+		 WHERE a.actor_seq > #{lastActorSeq}
+		 <if test="role == 'director'">
+		   AND c.casting_role = 'D'
+		 </if>
+		 <if test="role == 'actor'">
+		   AND c.casting_role != 'D'
+		 </if>
+		limit #{size}
+	</select>
+	
+
+</mapper>

@@ -1,0 +1,104 @@
+.movie-rating {
+}
+
+.movie-rating .header {
+  display: flex;
+}
+.movie-rating .header h5 {
+  flex: 1 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+.movie-rating .header .more {
+  white-space: nowrap;
+}
+.movie-rating .header .more > span {
+  color: red;
+}
+.movie {
+  display: flex;
+}
+
+.movie .rating {
+  background-color: #7fc24f;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 22px;
+  margin: 2px;
+  border-radius: 5px;
+  display: inline-flex;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  font-weight: 900;
+  align-items: center;
+}
+.movie .title {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.movie .score {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+.picholder {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.picholder .pic{
+	width: 25%;
+	padding: 4px;
+}
+.pic img{
+	width: 100%;
+	height: auto;
+}
+
+.picholder .actor{
+	width: 33%;
+	display: flex;
+	padding: 8px;
+	column-gap: 8px;
+	position: relative;
+}
+
+.picholder .actor .role {
+	position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    color: white;
+}
+.picholder .actor .role.L {
+	background-color: #7fb300;
+}
+
+.picholder .actor .role.S {
+	background-color: #379bd1;
+}
+
+.picholder .actor .role.E {
+	background-color: #c0c0c0;
+}
+.picholder .actor .info {
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.picholder .actor img{
+	border-radius: 16px;
+}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL Mapping -->
+<mapper namespace="castingMapper">
+
+	<resultMap id="castingMap" type="Casting">
+		<id column="movie_ref" property="movieSeq" ></id>
+		<id column="actor_ref" property="actorSeq"></id>
+		<result column="casting_name" property="castingName"></result>
+		<result column="casting_role" property="castingRole"></result>
+		<association property="movie" resultMap="movieMapper.movieMap"/>
+	</resultMap>
+	<insert id="addCasting" parameterType="Casting">
+		insert into castings(movie_ref,actor_ref,casting_name,casting_role)
+		values(#{movieSeq},#{actor.actor_seq},#{castingName},#{castingRole})
+	</insert>
+	
+	<select id="castingInfo" resultType="Casting" parameterType="Casting">
+		SELECT
+			 c.casting_name,
+			 c.casting_role,
+			 m.movie_title  
+		FROM castings c
+		LEFT JOIN movies m
+		  ON c.movie_ref = m.movie_seq
+	   WHERE c.actor_ref = #{actorSeq}
+	</select>
+	
+	<update id="editCasting" parameterType="map">
+	 	update castings
+	 	   set 
+	 	       casting_name = #{casting.castingName},
+	 	       casting_role = #{newRole}
+	     where actor_ref = #{casting.actorSeq} 
+	       and movie_ref = #{casting.movieSeq}
+	       and casting_role = #{casting.castingRole}   
+	</update>
+	
+	<sql id="casting_cols">
+		movie_ref , 
+		       actor_ref ,
+		       casting_name, 
+		       casting_role,
+		       m.*
+		       </sql>
+	<select id="findCasting" resultMap="castingMap" parameterType="int">
+		select movie_ref , 
+		       actor_ref ,
+		       casting_name, 
+		       casting_role,
+		       m.*
+		 FROM  castings c
+		 INNER 
+		 JOIN movies m 
+		   ON c.movie_ref = m.movie_seq 
+		WHERE actor_ref= #{actorSeq}  
+	</select>
+	
+	<select id="findUniqueCasting" resultMap="castingMap" parameterType="int">
+		select movie_ref , 
+		       actor_ref ,
+		       casting_name, 
+		       casting_role,
+		       m.*
+		 FROM  castings c
+		 INNER 
+		 JOIN movies m 
+		   ON c.movie_ref = m.movie_seq 
+		WHERE actor_ref= #{actorSeq}
+		  AND movie_ref = #{movieSeq}
+	</select>
+	
+	<select id="findMovieInfo" resultMap="castingMap" parameterType="map" >
+		select movie_ref , 
+		       actor_ref ,
+		       casting_name, 
+		       casting_role,
+		       m.*
+		 FROM  castings c
+		 INNER 
+		 JOIN movies m 
+		   ON c.movie_ref = m.movie_seq 
+		WHERE actor_ref= #{actorSeq}   
+		  And movie_ref = #{movieSeq} 
+	</select>
+	
+	<delete id="deleteCasting" parameterType="Casting">
+		delete from castings
+		where movie_ref = #{movieSeq}
+		and actor_ref = #{actorSeq}
+	</delete>
+</mapper>

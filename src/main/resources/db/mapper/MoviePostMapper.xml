@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL Mapping -->
+<mapper namespace="moviePostMapper">
+	<insert id="insertPoster" parameterType="MoviePoster" 
+	    useGeneratedKeys="true"
+	    keyColumn="posterSeq"
+		keyProperty="posterSeq"
+	    >
+		insert into movie_posters(moviePath,movie_ref)
+		values(#{moviePath},#{movie_ref})
+	</insert>
+	<select id="findMoviePoster" parameterType="int" resultType="MoviePoster">
+		select * 
+		 from movie_posters
+		where posterSeq = #{posterSeq}
+	</select>
+	<delete id="deleteMoviePoster" parameterType="MoviePoster">
+		delete from movie_posters
+		where posterSeq = #{posterSeq}
+	</delete>
+	<select id="maxPoster" parameterType="int" resultType="int">
+		select max(mainPoster)
+		  from movie_posters
+		 where	movie_ref = #{movie_ref} 
+	</select>
+	<update id="changeMainPoster" parameterType="MoviePoster">
+		update movie_posters 
+		   set mainPoster = #{mainPoster}
+		 where posterSeq = #{posterSeq} 
+	</update>
+</mapper>
