@@ -150,6 +150,7 @@
 }
 .reviews .review {
 	font-size: 12px;
+	position: relative;
 }
 .reviews .review h5 {
 	margin: 0;
@@ -166,8 +167,21 @@
 .review + .review {
 	margin-top: 12px;
 }
+.reviews .review .rv-edit-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    z-index: 1;
+    background-color: #ffffff;
+    padding: 8px;
+    box-shadow: 0 0 8px #0000004d;
+}
 .review-box {
 	display: flex;
+	flex-direction: column;
     column-gap: 8px;
 }
 .review-box textarea {
@@ -176,5 +190,27 @@
 .review-box > div {
 	display: flex;
 	row-gap : 8px;
-	flex-direction: column;
+	flex-direction: row;
+}
+
+.review-box .scoring {
+	display: flex;	
+}
+.review-box .scoring button {
+	border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+h3.rating {
+	display: flex;
+	align-items: center;
+}
+h3.rating .label {
+	flex: 1 1 auto;
+}
+h3.rating .avg {
+	color: crimson;
+	font-style: italic;
+	font-weight: 600;
 }

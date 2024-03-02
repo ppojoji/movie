@@ -155,7 +155,7 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping(value = "/admin/movie/{movieSeq}/basic")
-	public Movie movieInfo(@PathVariable String movieSeq) {
+	public Movie movieInfo(@PathVariable Integer movieSeq) {
 //		List<Actor> actorName = actorService.actorNameInfo(movieSeq);
 		Movie movie = movieService.movieDetail(movieSeq);
 		return movie;

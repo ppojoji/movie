@@ -30,7 +30,7 @@ public class MoviePosterService {
 		
 		
 		// 2. 영화 정보를 읽어들임
-		Movie movie = movieDao.movieDetail(movieSeq.toString());
+		Movie movie = movieDao.movieDetail(movieSeq);
 		
 		// 3. 영화 포스터 테이블(movie_poster insert into... )에 포스터 추가
 		MoviePoster moviePoster = new MoviePoster();

@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.study.funnymovie.domain.actor.Actor;
 import com.study.funnymovie.domain.actor.ActorDAO;
 import com.study.funnymovie.domain.casting.CastingService;
+import com.study.funnymovie.domain.review.Review;
+import com.study.funnymovie.domain.review.ReviewDAO;
 import com.study.funnymovie.domain.upfiles.LocalUpFile;
 import com.study.funnymovie.domain.upfiles.Upfile;
 import com.study.funnymovie.service.FileService;
@@ -23,6 +25,9 @@ import com.study.funnymovie.service.FileService;
 @Service
 public class MovieService {
 
+	@Autowired
+	ReviewDAO reviewDao;
+	
 	@Autowired 
 	MovieDao movieDao;
 	
@@ -53,7 +58,7 @@ public class MovieService {
 	 * @return
 	 */
 	public Movie findMovieInfo(Integer movieSeq) {
-		Movie movie = this.movieDetail(movieSeq.toString());
+		Movie movie = this.movieDetail(movieSeq);
 		
 		// castingService.findCasting(movieSeq);
 		// Actor director = actorDao.findActor(movie.getMovie_director_ref());  // "9";
@@ -78,7 +83,7 @@ public class MovieService {
 	 * @param movieSeq
 	 * @return
 	 */
-	public Movie movieDetail(String movieSeq) {
+	public Movie movieDetail(Integer movieSeq) {
 		return movieDao.movieDetail(movieSeq);
 	}
 	/**
@@ -154,5 +159,28 @@ public class MovieService {
 		List<Movie> movie = movieDao.searchMovie(keyword);
 		return movie;
 	}
-
+	/**
+	 * 주어진 영화 펑점 업데이트하고 새로운 평점값을 반환함
+	 * @param review
+	 * @return 새로운 영화 평점
+	 */
+	public double updateReviewScore(Review review) {
+		// 1. Movie movie = ...;
+		Movie movie = this.movieDetail(review.getMovie_ref());
+		
+		// 2. 리뷰 다 가져옴
+		List<Review> reviews = reviewDao.findReviewByMovie(review.getMovie_ref());
+		
+		// 3. 평점 계산 = 합 / 갯수
+		double total = 0;
+		for (Review rv : reviews) {
+			total = total + rv.getRv_score();
+		}
+		double avr = total/reviews.size();
+		movie.setMovie_avg_score(avr);
+		// 4. 평점 업데이트
+		movieDao.updateReviewScore(movie);
+		
+		return avr;
+	}
 }

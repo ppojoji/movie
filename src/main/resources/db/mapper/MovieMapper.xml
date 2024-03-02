@@ -51,7 +51,7 @@
 			where open_date > #{date}
 		 ]]>
 	</select>
-	<select id="movieDetail" resultMap="movieDetailMap" parameterType="String">
+	<select id="movieDetail" resultMap="movieDetailMap" parameterType="int">
 		SELECT
 			m.*,
 			mp.*
@@ -107,5 +107,10 @@
 		update movies 
 		set movie_poster = #{movie_poster}
 		where movie_seq = #{movie_seq}
+	</update>
+	<update id="updateReviewScore" parameterType="Movie">
+		update movies
+		 set movie_avg_score = #{movie_avg_score}
+		where movie_seq = #{movie_seq} 
 	</update>
 </mapper>

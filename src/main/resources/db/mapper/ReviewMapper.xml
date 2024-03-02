@@ -29,4 +29,21 @@
 		)
 	</insert>
 	
+	<update id="updateReview" parameterType="Review">
+		update user_reviews 
+		   set rv_score = #{rv_score} ,
+		       rv_comment = #{rv_comment} 
+		 where rv_seq = #{rv_seq}      
+	</update>
+	
+	<select id="findReviewSeq" resultType="Review" parameterType="int">
+		select * 
+		from user_reviews 
+		WHERE rv_seq = #{rv_seq} 
+	</select>
+	
+	<delete id="deleteReview" parameterType="int">
+		delete from user_reviews 
+		 where rv_seq = #{rv_seq} 
+	</delete>
 </mapper>

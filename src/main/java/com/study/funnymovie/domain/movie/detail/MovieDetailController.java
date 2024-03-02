@@ -47,7 +47,7 @@ public class MovieDetailController {
 	UpfileService upFileService;
 	
 	@GetMapping(value="/movies/movie-detail")
-	public String movieDetail(Model model,@RequestParam String movieSeq) {
+	public String movieDetail(Model model,@RequestParam Integer movieSeq) {
 		
 		Movie movie = movieService.movieDetail(movieSeq);
 

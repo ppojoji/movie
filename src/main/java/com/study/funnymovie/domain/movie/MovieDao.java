@@ -29,11 +29,10 @@ public class MovieDao {
 	/**
 	 * 영화 기본 정보를 반환함
 	 * 
-	 * FIXME seq 타입을 Integer 로 바꿔야 함
 	 * @param movieSeq
 	 * @return
 	 */
-	public Movie movieDetail(String movieSeq) {
+	public Movie movieDetail(Integer movieSeq) {
 		return session.selectOne("movieMapper.movieDetail", movieSeq);
 	}
 
@@ -61,6 +60,13 @@ public class MovieDao {
 
 	public void changeMoviePoster(Movie movie) {
 		session.update("movieMapper.changeMoviePoster",movie);
+	}
+	/**
+	 * 영화 평점 업데이트
+	 * @param movie
+	 */
+	public void updateReviewScore(Movie movie) {
+		session.update("movieMapper.updateReviewScore",movie);
 	}
 	
 }

@@ -1,12 +1,14 @@
 package com.study.funnymovie.domain.movie;
 
-import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,21 +39,35 @@ public class MovieController {
 	}
 	
 	@GetMapping("/movie/{movieSeq}/reviews")
-	public List<Review> movieReview(@PathVariable Integer movieSeq) {
+	public Object movieReview(@PathVariable Integer movieSeq, HttpSession session) {
+		
+		User sessionUser =  Util.getUser(session);
+
+		Movie movie = movieService.movieDetail(movieSeq);
 		List<Review> reviews = reviewService.findReviewByMovie(movieSeq);
-		return reviews;
+		
+		Map<String, Object> res = new HashMap<>();
+		res.put("movie", movie);
+		res.put("reviews", reviews);
+		if(sessionUser != null) {
+			res.put("loginUser", sessionUser);
+		}
+		return res;
 	}
 	
 	@PostMapping("/movie/writeReview")
-	public Review writeReview(
+	public Object writeReview(
 			@RequestParam Integer movie_ref,
-			@RequestParam Integer user_ref,
 			@RequestParam Integer rv_score,
 			@RequestParam String rv_comment,
 			HttpSession session
 			) {
 	
 		User sessionUser =  Util.getUser(session);
+		
+		if(sessionUser == null) {
+			throw new RuntimeException("LOGIN_REQUIRED");
+		}
 		
 		System.out.println("movie_ref: " + movie_ref);
 		System.out.println("rv_score: " + rv_score);
@@ -67,6 +83,14 @@ public class MovieController {
 		review.setRv_comment(rv_comment);
 		
 		reviewService.writeReview(review);
-		return review;
+		
+		review.setUser_id(sessionUser.getUser_id());
+		
+		double avrScore = movieService.updateReviewScore(review);
+		
+		Map<String, Object> res = new HashMap<>();
+		res.put("review", review);
+		res.put("avg", avrScore);
+		return res;
 	}
 }
