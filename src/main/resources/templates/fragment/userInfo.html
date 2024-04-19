@@ -20,7 +20,7 @@
   </head>
   <body>
     <div>
-      <p><span th:text="${session.LOGIN_USER.user_id}">USERID</span>님 환영합니다.</p>
+      <p><a href="/mypage"><span th:text="${session.LOGIN_USER.user_id}">USERID</span></a>님 환영합니다.</p>
       <span>
         <button id="btn-logout">logout</button>
       </span>

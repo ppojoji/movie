@@ -28,4 +28,17 @@ public class UserDao {
 		User user = session.selectOne("UserMapper.login",map);
 		return user;
 	}
+
+	public User userInfo(Integer userSeq) {
+		return session.selectOne("UserMapper.userInfo",userSeq);
+	}
+
+	public void doJoin(User newUser) {
+		session.insert("UserMapper.doJoin", newUser);
+	}
+
+	public User findByUserId(String id) {
+		User user = session.selectOne("UserMapper.findByUserId", id);
+		return user;
+	}
 }

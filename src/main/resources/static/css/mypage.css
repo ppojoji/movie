@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.tab-header{}
+
+.tab-header > button {
+	background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-header > button.active{
+	color: #2f88bf;
+	border-bottom: 2px solid #2f88bf;
+}
+
+.tab-body > section {
+	display : none;
+}
+.tab-body > section.active {
+	display: block;
+}
+
+.nick-modal {
+    position: fixed;
+    inset: 0;
+}
+.nick-modal .dimmer {
+    position: absolute;
+    inset: 0;
+    background-color: #0000004d;
+}
+.nick-modal .body{
+position: absolute;
+    width: 400px;
+    z-index: 5;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -16,4 +16,23 @@
 		 	 and user_pass = #{pass}
  	</select>
  	
+ 	<select id="userInfo" parameterType="int" resultType="User">
+ 		select * 
+ 		  from users
+ 		 where user_seq = #{user_seq}  
+ 	</select>
+ 	<select id="findByUserId" parameterType="String" resultType="User">
+		select * 
+ 		  from users
+ 		 where user_id = #{user_id} 		
+ 	</select>
+ 	
+ 	<insert id="doJoin" parameterType="User" useGeneratedKeys="true"
+		keyColumn="user_seq"
+		keyProperty="user_seq">
+ 	 	insert users(user_id,user_pass,user_nic,user_email)
+ 	 	values(#{user_id},#{user_pass},#{user_nic},#{user_email}) 
+ 	</insert>
+ 	
+ 	
 </mapper>

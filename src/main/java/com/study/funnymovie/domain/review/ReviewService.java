@@ -54,4 +54,8 @@ public class ReviewService {
 		}
 		return review;
 	}
+
+	public Object findReviewByUser(Integer userSeq) {
+		return reviewDao.findReviewByUser(userSeq);
+	}
 }

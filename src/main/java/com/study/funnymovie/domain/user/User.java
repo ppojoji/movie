@@ -19,4 +19,5 @@ public class User {
 	String user_id;
 	String user_pass;
 	String user_nic;
+	String user_email;
 }

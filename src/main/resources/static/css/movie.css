@@ -193,15 +193,6 @@
 	flex-direction: row;
 }
 
-.review-box .scoring {
-	display: flex;	
-}
-.review-box .scoring button {
-	border: none;
-    background-color: transparent;
-    padding: 0;
-}
-
 h3.rating {
 	display: flex;
 	align-items: center;

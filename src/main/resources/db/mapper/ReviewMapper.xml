@@ -4,12 +4,50 @@
   
   <!-- SQL Mapping -->
 <mapper namespace="reviewMapper">
+	<!-- <resultMap type="Movie" id="reviewMap">
+		<id column="movie_seq" property="movie_seq"></id>
+		<result column="movie_title" property="movie_title"/>
+		<result column="running_time_mins" property="running_time_mins"/>
+		<result column="open_date" property="open_date"/>
+		<result column="grade" property="grade"/>
+		<result column="movie_avg_score" property="movie_avg_score"/>
+		<result column="movie_produce" property="movie_produce"/>
+	</resultMap> -->
+	<resultMap type="Review" id="reviewMap">
+		<id column="rv_seq" property="rv_seq"/>
+		<result column="rv_score" property="rv_score"/>
+		<result column="rv_comment" property="rv_comment"/>
+		<result column="user_ref" property="user_ref"/>
+		<result column="movie_ref" property="movie_ref"/>
+		
+		<!-- <association column="movie_ref" property="movie" select="movieMapper.movieDetail"/> -->
+		<association property="movie" resultMap="movieMapper.movieDetailMap"></association>
+	</resultMap >
+	
 	<select id="findReviewByMovie" resultType="Review" parameterType="int">
 		select * 
 		from user_reviews ur INNER JOIN users u 
 		ON ur.user_ref = u.user_seq 
 		WHERE movie_ref = #{movieSeq}
 		ORDER BY rv_seq desc
+	</select>
+	
+	<select id="findReviewByUser" resultMap="reviewMap" parameterType="int">
+		  SELECT 
+		  		 ur.rv_seq,
+		  		 ur.movie_ref,
+				 ur.user_ref,
+				 ur.rv_score,
+				 ur.rv_comment,
+				 m.*,
+				 mp.*
+		  FROM user_reviews ur 
+		  INNER JOIN movies m
+		    ON ur.movie_ref = m.movie_seq 
+		  LEFT
+		  JOIN movie_posters mp
+		    ON m.movie_seq = mp.movie_ref
+		  WHERE user_ref  = #{userSeq}
 	</select>
 	
 	<insert id="writeReview" parameterType="Review" 

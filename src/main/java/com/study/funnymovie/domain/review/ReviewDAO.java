@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.study.funnymovie.domain.movie.Movie;
+import com.study.funnymovie.domain.user.User;
 
 @Repository
 public class ReviewDAO {
@@ -32,6 +33,10 @@ public class ReviewDAO {
 
 	public void deleteReview(Integer reviewSeq) {
 		session.delete("reviewMapper.deleteReview",reviewSeq);
+	}
+
+	public Object findReviewByUser(Integer userSeq) {
+		return session.selectList("reviewMapper.findReviewByUser",userSeq);
 	}
 	
 }

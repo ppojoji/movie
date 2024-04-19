@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,5 +62,40 @@ public class LoginController {
 		session.invalidate();
 		return true;
 	}
-	// "/logout"
+	
+	@GetMapping("/join")
+	public Object join(HttpSession session) {
+		User sessionUser =  Util.getUser(session);
+		
+		if(sessionUser != null) {
+			// "/" 첫페이지로 돌아가게 함! redirect
+			return "redirect:/";
+		}else {
+			return "joinForm";
+		}
+	}
+	@PostMapping("/insertJoin")
+	@ResponseBody
+	public User doJoin(@RequestParam String id
+			, @RequestParam String email
+			, @RequestParam String pwd) {
+		
+		System.out.println("id" + id);
+		System.out.println("email" + email);
+		System.out.println("pwd" + pwd);
+		
+		User user = userService.doJoin(id,email,pwd);
+		return user;
+	}
+	/**
+	 * 주어진 id가 이미 사용중인지 조회함
+	 * @param id
+	 * @return 이미 사용 중이면 true 반환, 사용하지 않는 id 이면 false 반환 
+	 */
+	@PostMapping("/join/existing/id")
+	@ResponseBody
+	public Boolean existingId(@RequestParam String id) {
+		Boolean existing = userService.existingId(id);
+		return existing;
+	}
 }

@@ -26,7 +26,12 @@ $(document).ready(() => {
         },
       });
     }
-  });
+  })
+  .on('click','#join',(e) => {
+	console.log(e);
+	location.href = "/join";
+  })
+  ;
 });
 
 /*

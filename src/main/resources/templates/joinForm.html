@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org" 
+	layout:decorate="~{layout/layout.html}">
+	<head>
+		<script src="/js/join-form.js"></script>
+		<link rel="stylesheet" href="/css/join-form.css" />
+	</head>
+	<body>
+ 	<div layout:fragment="content">
+ 		<h3>회원가입</h3>
+ 		<div class="join-form">
+ 			<div class="error"></div>
+ 			<div class="elem">
+ 				<label><input type="text" class="id" placeholder="아이디" value="ready"> </label>
+ 			</div>
+ 			<div class="elem">
+ 				<label><input type="text" class="email" placeholder="이메일" value="ready@gmail.com"> </label>
+ 			</div>
+ 			<div class="elem">
+ 				<label><input type="password" class="pwd" placeholder="비밀번호" value="3498d3jj"> </label>
+ 			</div>
+ 			<div class="elem">
+ 				<button disabled class="btn join">가입하기</button>
+ 			</div>
+ 		</div>
+ 	</div>
+	</body>
+</html>

@@ -226,27 +226,19 @@ $(document).ready(() => {
 				return review.rv_seq === reviewSeq
 			})
 			editingReview = review; 
-			$.ajax({
-				url : `/review/${reviewSeq}`,
-				method: "DELETE",
-				success(res){
-					console.log(res)
-					const idx = reviews.findIndex((r)=>{
-						if(res.review.rv_seq === r.rv_seq){
-							return true;
-						}
-					})
-					reviews.splice(idx,1);
-					
-					movie.movie_avg_score = res.avgScore;
-					const $reviews =  $('#movieStory > .reviews')
-					renderRenderReview($reviews, movie , reviews);
-				
-				}
-			})	
+			
+			api.review.delete(reviewSeq,(res)=>{
+				const idx = reviews.findIndex((r)=>{
+					if(res.review.rv_seq === r.rv_seq){
+						return true;
+					}
+				})
+				reviews.splice(idx,1);	
+				movie.movie_avg_score = res.avgScore;
+				const $reviews =  $('#movieStory > .reviews')
+				renderRenderReview($reviews, movie , reviews);
+			}) 
 		}
-		
-	
 	})
 	
 	$('.tab')
